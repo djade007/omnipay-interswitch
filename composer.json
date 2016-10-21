@@ -1,0 +1,35 @@
+{
+    "name": "djade007/omnipay-interswitch",
+    "type": "library",
+    "description": "Interswitch driver for the Omnipay payment processing library",
+    "keywords": [
+        "interswitch",
+        "omnipay",
+        "payment",
+        "card"
+    ],
+    "homepage": "https://github.com/djade007/omnipay-interswitch",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Olajide Afeez",
+            "email": "me@djade.net"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "Omnipay\\Interswitch\\" : "src/" }
+    },
+    "require": {
+        "omnipay/common": "~2.3"
+    },
+    "require-dev": {
+        "omnipay/tests": "~2.0"
+    },
+    "suggest": {
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0.x-dev"
+        }
+    }
+}
