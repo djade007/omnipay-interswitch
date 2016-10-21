@@ -12,11 +12,13 @@ class PurchaseRequest extends AbstractRequest
             'product_id' => $this->getProductId(),
             'pay_item_id' => $this->getPayItemId(),
             'amount' => $this->getAmount() * 100, // convert to kobo or cent
-            'currency' => $this->getCurrency(),
+            'currency' => $this->getCurrencyNumeric(),
             'site_redirect_url' => $this->getReturnUrl(),
             'txn_ref' => $this->getTransactionId(),
             'testMode' => true
         ];
+
+        dd($data);
 
         $data = array_merge($data, ['hash' => $this->generateHash($data)]);
 

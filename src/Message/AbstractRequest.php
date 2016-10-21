@@ -3,6 +3,8 @@
 namespace Omnipay\Interswitch\Message;
 
 
+use Omnipay\Interswitch\Currency;
+
 abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
     protected $testEndpoint = 'https://sandbox.interswitchng.com/webpay/pay';
@@ -58,5 +60,17 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     public function getEndpoint()
     {
         return $this->getTestMode() ? $this->testEndpoint : $this->liveEndpoint;
+    }
+
+    /**
+     * Get the payment currency number.
+     *
+     * @return integer
+     */
+    public function getCurrencyNumeric()
+    {
+        if ($currency = Currency::find($this->getCurrency())) {
+            return $currency->getNumeric();
+        }
     }
 }
