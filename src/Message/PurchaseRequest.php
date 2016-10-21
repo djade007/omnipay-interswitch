@@ -18,8 +18,6 @@ class PurchaseRequest extends AbstractRequest
             'testMode' => true
         ];
 
-        dd($data);
-
         $data = array_merge($data, ['hash' => $this->generateHash($data)]);
 
         return $data;
