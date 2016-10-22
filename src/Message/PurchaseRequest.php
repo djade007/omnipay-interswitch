@@ -15,7 +15,7 @@ class PurchaseRequest extends AbstractRequest
             'currency' => $this->getCurrencyNumeric(),
             'site_redirect_url' => $this->getReturnUrl(),
             'txn_ref' => $this->getTransactionId(),
-            'testMode' => true
+            'testMode' => $this->getTestMode()
         ];
 
         $data = array_merge($data, ['hash' => $this->generateHash($data)]);
