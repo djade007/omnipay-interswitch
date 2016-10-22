@@ -24,13 +24,60 @@ And run composer to update your dependencies:
     $ curl -s http://getcomposer.org/installer | php
     $ php composer.phar update
 
-Configure your serializer (for example, JMS serializer):
-
 
 ## Basic Usage
 
 For general usage instructions, please see the main [Omnipay](https://github.com/omnipay/omnipay)
 repository.
+```
+$gateway = Omnipay::create('Interswitch');
+
+$gateway->initialize([
+    'macKey' => 'D3D1D05AFE42AD50818167EAC73C109168A0F108F32645C8B59E897FA930DA44F9230910DAC9E20641823799A107A02068F7BC0F4CC41D2952E249552255710F',
+    'productId' => 6205,
+    'payItemId' => 101,
+    'currency' => 'NGN',
+]);
+
+
+$transaction = $gateway->purchase([
+    'returnUrl' => '{URL}',
+    'amount' => 100000,
+    'transactionId' => {RANDOM_DIGITS}
+]);
+
+$response = $transaction->send();
+
+if ($response->isSuccessful()) {
+    echo('success');
+} elseif ($response->isRedirect()) {
+    return $response->redirect(); // this will automatically forward the customer to interswitch
+} else {
+    echo('fail');
+}
+```
+
+**On Redirect Route {URL}**
+```
+$gateway = Omnipay::create('Interswitch');
+// same initialize values 
+$gateway->initialize([
+    'macKey' => 'D3D1D05AFE42AD50818167EAC73C109168A0F108F32645C8B59E897FA930DA44F9230910DAC9E20641823799A107A02068F7BC0F4CC41D2952E249552255710F',
+    'productId' => 6205,
+    'payItemId' => 101,
+    'currency' => 'NGN'
+]);
+
+$response = $gateway->completePurchase(['txnref' => $_POST['txnref']])->send();
+
+if ($response->isSuccessful()) {
+    echo('success');
+} else {
+    echo "failed\n";
+    echo $response->getMessage();
+}
+```
+
 
 ## Support
 
